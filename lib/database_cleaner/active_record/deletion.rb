@@ -23,7 +23,7 @@ module DatabaseCleaner
       end
 
       def delete_table connection, table_name
-        connection.execute("DELETE FROM #{connection.quote_table_name(table_name)}")
+        connection.execute("DELETE FROM #{connection.quote_table_name(table_name)} WHERE 1=1")
       end
 
       def tables_to_truncate(connection)
@@ -64,7 +64,7 @@ module DatabaseCleaner
       end
 
       def information_schema_exists? connection
-        connection.adapter_name == "Mysql2"
+        ["Mysql2", "Trilogy"].include?(connection.adapter_name)
       end
     end
   end
